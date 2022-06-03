@@ -18,7 +18,7 @@
         android:id="@+id/textAddOrRemove"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Type in a new task here">
+        android:hint="@string/type_in_a_new_task_here">
     </EditText>
 
     <LinearLayout
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.33"
-            android:text="ADD"
+            android:text="@string/add"
             android:layout_margin="5dp">
         </Button>
 
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.33"
-            android:text="Delete"
+            android:text="@string/delete"
             android:layout_margin="5dp">
         </Button>
 
@@ -49,7 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.33"
-            android:text="CLEAR"
+            android:text="@string/clear"
             android:layout_margin="5dp">
         </Button>
 
@@ -61,7 +61,5 @@
         android:layout_height="wrap_content">
 
     </ListView>
-
-
 
 </LinearLayout>
