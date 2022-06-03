@@ -15,7 +15,7 @@
     </Spinner>
 
     <EditText
-        android:id="@+id/textEditNew"
+        android:id="@+id/textAddOrRemove"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Type in a new task here">
@@ -57,7 +57,7 @@
 
     <ListView
         android:id="@+id/lvID"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     </ListView>

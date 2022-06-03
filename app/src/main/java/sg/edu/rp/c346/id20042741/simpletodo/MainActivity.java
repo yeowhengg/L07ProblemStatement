@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     ListView lvToDo;
     Spinner add_or_remove;
-    EditText enterToDo;
+    EditText enterToDoOrIndex;
     ArrayList<String> toDoArray;
     ArrayAdapter adapter;
     Button btnAdd;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         lvToDo = findViewById(R.id.lvID);
         add_or_remove = findViewById(R.id.spinnerid);
-        enterToDo = findViewById(R.id.textEditNew);
+        enterToDoOrIndex = findViewById(R.id.textAddOrRemove);
         toDoArray = new ArrayList<>();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, toDoArray);
         btnAdd = findViewById(R.id.btnAdd);
@@ -43,15 +43,14 @@ public class MainActivity extends AppCompatActivity {
         add_or_remove.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, String.format("%d", position),Toast.LENGTH_SHORT).show();
                 switch(position){
                     case 0:
-                        enterToDo.setHint("Type in a new task here");
+                        enterToDoOrIndex.setHint("Type in a new task here");
                         btnDel.setEnabled(false);
                         btnAdd.setEnabled(true);
                         break;
                     case 1:
-                        enterToDo.setHint("Type in the index of the task to be removed");
+                        enterToDoOrIndex.setHint("Type in the index of the task to be removed");
                         btnAdd.setEnabled(false);
                         btnDel.setEnabled(true);
                         break;
@@ -70,8 +69,60 @@ public class MainActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toDoArray.add(enterToDo.getText().toString());
-                adapter.notifyDataSetChanged();
+                if(!enterToDoOrIndex.getText().toString().isEmpty()){
+                    toDoArray.add(enterToDoOrIndex.getText().toString());
+                    adapter.notifyDataSetChanged();
+                }
+                else{
+                    Toast.makeText(MainActivity.this, "Enter something", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
+        btnDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                // first condition; check if the array got nothing.
+                if(toDoArray.size() != 0){
+
+                    // second condition; check if the input is not empty
+                    if(!enterToDoOrIndex.getText().toString().isEmpty()){
+                        int getIndex = Integer.parseInt(enterToDoOrIndex.getText().toString());
+
+                        // third condition; check if getIndex is a number that is a valid index
+                        if(getIndex >= 0 && getIndex <= toDoArray.size()){
+
+                            // fourth condition; check if index of toDoArray is null
+                            if(toDoArray.get(getIndex-1) == null){
+                                Toast.makeText(MainActivity.this, "Please enter a valid index", Toast.LENGTH_SHORT).show();
+                            }
+
+                            // if not empty, remove
+                            else{
+                                toDoArray.remove(getIndex-1);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+
+                        // else for third condition
+                        else{
+                            Toast.makeText(MainActivity.this, "Please enter a valid index", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    // else for second condition
+                    else{
+                        Toast.makeText(MainActivity.this, "Enter the index to remove", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                // else for first condition
+                else{
+                    Toast.makeText(MainActivity.this, "Currently have no task. Add in some to remove", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
